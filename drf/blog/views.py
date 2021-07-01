@@ -1,8 +1,10 @@
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, \
     ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import CreateModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 from .models import Blog
 from django.shortcuts import render
@@ -36,7 +38,8 @@ from .serializer import BlogSerializer
 # class BlogUpdateAPIView(UpdateAPIView):
 #     queryset = Blog.objects.all()
 #     serializer_class = BlogSerializer
-#
+# if we use "id" instead of "pk" in url then we have to use here
+#     lookup_field = "id"
 #
 # class BlogDestroyAPIView(DestroyAPIView):
 #     queryset = Blog.objects.all()
@@ -61,14 +64,16 @@ from .serializer import BlogSerializer
 #         return self.delete(request, *args, **kwargs)
 #
 
-class BlogListCreateView(ListCreateAPIView):
+# class BlogListCreateView(ListCreateAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
+#
+#
+# class BlogDetailView(RetrieveUpdateDestroyAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
+
+class BlogModelViewSet(ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
-
-
-class BlogDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
-
-    # if we use "id" instead of "pk" in url then we have to use here
-    # lookup_field = "id"
+    parser_classes = [FormParser, MultiPartParser]
