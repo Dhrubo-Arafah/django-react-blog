@@ -1,3 +1,4 @@
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -16,6 +17,10 @@ from .serializer import BlogSerializer
 #         return Response(blog_serializer.data)
 
 class BlogListAPIView(APIView):
-    queryset=Blog.objects.all()
-    serializer_class=BlogSerializer
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
 
+
+class BlogCreateAPIView(CreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
