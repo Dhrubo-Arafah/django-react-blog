@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -25,7 +25,17 @@ class BlogCreateAPIView(CreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
+
 class BlogRetrieveAPIView(RetrieveAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
+
+class BlogUpdateAPIView(UpdateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+
+class BlogDestroyAPIView(DestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
