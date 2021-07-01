@@ -1,4 +1,5 @@
-from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, \
+    ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -41,20 +42,33 @@ from .serializer import BlogSerializer
 #     queryset = Blog.objects.all()
 #     serializer_class = BlogSerializer
 
-class BlogListCreateView(CreateModelMixin, ListAPIView):
+# class BlogListCreateView(CreateModelMixin, ListAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
+#
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+#
+#
+# class BlogDetailView(UpdateModelMixin, DestroyModelMixin, RetrieveAPIView):
+#     queryset = Blog.objects.all()
+#     serializer_class = BlogSerializer
+#
+#     def put(self, request, *args, **kwargs):
+#         return self.put(request, *args, **kwargs)
+#
+#     def delete(self, request, *args, **kwargs):
+#         return self.delete(request, *args, **kwargs)
+#
+
+class BlogListCreateView(ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
-
-class BlogDetailView(UpdateModelMixin, DestroyModelMixin, RetrieveAPIView):
+class BlogDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
-    def put(self, request, *args, **kwargs):
-        return self.put(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.delete(request, *args, **kwargs)
+    # if we use "id" instead of "pk" in url then we have to use here
+    # lookup_field = "id"
